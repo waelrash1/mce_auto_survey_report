@@ -1,0 +1,15 @@
+1- install python3 latest version 
+2- Add the python directory to the the PATH variable. from the CMD run system.cpl to open env. Variables under advanced.
+3- install get-pip ( included)
+	>> python get-pip.py
+4- Open CMD and update pip by running 
+	>> python -m pip install --upgrade pip
+5- Install all the required packages:
+	>> python -m pip install -r requirements.txt
+
+6- run:
+	>>reportProcessing.py
+
+This will create two pdfs one for the compressed images in the specified folder and second is a pdf that merges the report and images. It is presumed that the report is already generated. You need to run it from the directory of reportProcessing.py
+
+
