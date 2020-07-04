@@ -1,0 +1,6 @@
+Pillow
+img2pdf
+fpdf
+PyPDF2
+bottle
+flask

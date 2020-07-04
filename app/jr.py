@@ -4,13 +4,13 @@ from os import listdir
 import pathlib
 import shutil 
 from pyreportjasper import JasperPy
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, abort, jsonify,send_file, send_from_directory
 from copyFiles import copyPhotos
 from datetime import datetime
 from photos2pdf import photosMerge,mergeReportPhotos
 
 app = Flask(__name__)
-
+PDF_DIRECTORY = "./output/pdfs/"
 jasper = JasperPy()
 
 def reportInputFile(reportName):
@@ -66,7 +66,9 @@ def my_route():
 
   # Merge all in one pfd file
   
-  outputFilePath =photoPath+SurveyID+"-full_"+datetime.now().strftime("%Y%m%d+%H%M%S")+'.pdf'
+  output_dir = "./output/pdfs/"
+  outputFilePath = output_dir+SurveyID +"-full_"+datetime.now().strftime("%Y%m%d+%H%M%S")+'.pdf'
+
 
   mergeReportPhotos(reportPDFPath,PhotosPDFPath,outputFilePath)
   
@@ -89,6 +91,36 @@ def my_route():
   except IOError:
       return make_response("<h1>403 Forbidden</h1>", 403)
 
+@app.route("/files")
+def list_files():
+    """Endpoint to list files on the server."""
+    files = []
+    for filename in os.listdir(PDF_DIRECTORY):
+        path = os.path.join(PDF_DIRECTORY, filename)
+        if os.path.isfile(path):
+            files.append(filename)
+    return jsonify(files)
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    suffix = ".pdf"
+    print(filename)
+    if filename.lower().endswith(".pdf"):
+        path= os.path.join(PDF_DIRECTORY, filename)
+    else:
+        path= os.path.join(PDF_DIRECTORY, filename + suffix)
+        filename=os.path.join(filename + suffix)
+    print(filename)
+    try:
+        return send_file(path, as_attachment=True)
+    except:
+        return path+" REPORT IS NOT READY YET...IT TAKES A WHILE TO BE GENERATED"
+
 if __name__ == '__main__':
     #compiling()
-    app.run(host='0.0.0.0')
+##    http://0.0.0.0:5000/report?surveyID=104747&reportName=surveyReportBefore
+##    http://0.0.0.0:5000/files
+##    http://0.0.0.0:5000/download/104747.pdf
+##    lsof -ti:8002 | xargs kill
+
+    app.run(port='8000')
