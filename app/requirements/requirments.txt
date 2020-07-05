@@ -4,3 +4,4 @@ fpdf
 PyPDF2
 bottle
 flask
+flask-httpauth
