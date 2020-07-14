@@ -1,4 +1,6 @@
+# /usr/local/bin/python3
 # -*- coding: utf-8 -*-
+# **** JR is the main app
 import os
 from datetime import datetime
 
@@ -73,7 +75,7 @@ def my_route():
     # SurveyID='104747' # for testing; this should be pass as a parameter in url of the api
 
     # Copy photo directory from shared photo server
-    photoPath = copyPhotos(SurveyID)
+    photoPath = copyPhotos()
     print('Image path....', photoPath)
 
     # Merge all photos in one pfd file
@@ -142,6 +144,7 @@ def download_file(filename):
 
 if __name__ == '__main__':
     # compiling()
+    # URI's
     print('http://0.0.0.0:8000/report?surveyID=104747&reportName=surveyReportBefore')
     print('http://0.0.0.0:8000/files')
     print('http://0.0.0.0:8000/download/104747.pdf')

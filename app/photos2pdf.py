@@ -1,4 +1,5 @@
 # /usr/local/bin/python3
+# -*- coding: utf-8 -*-
 # **** Merge all images in a path in a  pdf file and then merge this file
 # with the generated report in one pdf ****
 

@@ -1,8 +1,16 @@
+# /usr/local/bin/python3
+# -*- coding: utf-8 -*-
+# *** this script copy images from photo server to local destination.
 import os
 import shutil
 
 
 def copyPhotos(surveyID):
+    """
+
+    @param surveyID: Identification of the survey i.e. assisCode
+    @return dest: Destination local directory
+    """
     # Copy directory tree (cp -R src dst) form remote location "shared folder"
     src = '../' + surveyID
     # srcDir = os.path.dirname(src)
